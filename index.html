@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+
+    <title>UniOpine</title>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="header-left">
+            <img src="assets/logo.png" alt="UniOpine" class="logo">
+        </div>
+
+        <nav class="nav">
+            <a href="#" class="nav-item active">Cursos</a>
+            <a href="#" class="nav-item">Comunidade</a>
+            <a href="#" class="nav-item">Sobre nós</a>
+        </nav>
+ 
+
+        <div class="header-right">
+            <button class="btn-login">Entrar</button>
+            <button class="btn-register">Cadastrar</button>
+        </div>
+    </header>
+
+
+    <section class="hero">
+        <div class="hero-left">
+            <h2>Encontre o que melhor se adequa a você. Ajude-nos a melhorar sua experiência</h2>
+            <p>Selecione os seus interesses e receba cursos que os estudantes deram melhores avaliações dentro de suas universidades.</p>
+            <button class="btn-interesses">Selecionar Interesses</button>
+        </div>
+
+        <div class="hero-right">
+            <img />
+        </div>
+    </section>
+
+    <section class="filtros">
+        <select>
+            <option>Área de Conhecimento</option>
+        </select>
+
+        <select>
+            <option>Classificação do Curso</option>
+        </select>
+
+        <select>
+            <option>Modalidade</option>
+        </select>
+
+        <select>
+            <option>Período</option>
+        </select>
+
+        <input type="text" placeholder="Digite o nome do curso" />
+        <button class="btn-buscar">Buscar</button>
+    </section>
+
+    <section class="cursos">
+    </section>
+
+ 
+    <script>
+    const itens = document.querySelectorAll('.nav-item');
+
+    itens.forEach(item => {
+        item.addEventListener('click', () => {
+            document.querySelector('.nav-item.active')?.classList.remove('active');
+            item.classList.add('active');
+        });
+    });
+    </script>
+
+</body>
+</html>

@@ -3,80 +3,886 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniOpine - Plataforma de Cursos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <link rel="stylesheet" href="style.css">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f5f5f5;
+            color: #1a2332;
+        }
 
-    <title>UniOpine</title>
+        /* Header */
+        header {
+            background-color: #fff;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1a2332;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #1a2332 0%, #2d3e5f 100%);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: #1a2332;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding-bottom: 0.5rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: #a3e635;
+        }
+
+        nav a:hover {
+            color: #4b5563;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-entrar {
+            padding: 0.65rem 1.5rem;
+            background-color: #1a2332;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-entrar:hover {
+            background-color: #2d3e5f;
+        }
+
+        .btn-cadastrar {
+            padding: 0.65rem 1.5rem;
+            background-color: #a3e635;
+            color: #1a2332;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-cadastrar:hover {
+            background-color: #84cc16;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            cursor: pointer;
+        }
+
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #f3f4f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .notification-icon::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background-color: #a3e635;
+            border-radius: 50%;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            border: 2px solid #fff;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background-color: #e5e7eb;
+            padding: 4rem 2rem;
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 2rem;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            color: #1a2332;
+        }
+
+        .hero-content p {
+            color: #4b5563;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .btn-selecionar {
+            padding: 0.75rem 2rem;
+            background-color: #a3e635;
+            color: #1a2332;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: background-color 0.3s;
+        }
+
+        .btn-selecionar:hover {
+            background-color: #84cc16;
+        }
+
+        .hero-illustration {
+            position: relative;
+        }
+
+        .browser-mockup {
+            background: #fff;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .browser-header {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 2rem;
+        }
+
+        .browser-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #d1d5db;
+        }
+
+        .illustration-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .illustration-bar {
+            height: 12px;
+            background-color: #a3e635;
+            border-radius: 6px;
+        }
+
+        .illustration-bar:nth-child(1) {
+            width: 60%;
+        }
+
+        .illustration-bar:nth-child(2) {
+            width: 80%;
+        }
+
+        .illustration-bar:nth-child(3) {
+            width: 100%;
+            height: 2px;
+            background-color: #e5e7eb;
+        }
+
+        .illustration-bar:nth-child(4) {
+            width: 100%;
+            height: 2px;
+            background-color: #e5e7eb;
+        }
+
+        .person-illustration {
+            position: absolute;
+            right: -10px;
+            bottom: -20px;
+            font-size: 4rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Filters */
+        .filters-container {
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .filters-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-select {
+            padding: 0.65rem 1rem;
+            background-color: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            color: #1a2332;
+            min-width: 180px;
+        }
+
+        .search-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: auto;
+        }
+
+        .search-input {
+            padding: 0.65rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            min-width: 250px;
+        }
+
+        .search-input::placeholder {
+            color: #9ca3af;
+        }
+
+        .btn-buscar {
+            padding: 0.65rem 2rem;
+            background-color: #1a2332;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-buscar:hover {
+            background-color: #2d3e5f;
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 2rem;
+        }
+
+        /* Course List */
+        .course-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .course-card {
+            background-color: #fff;
+            padding: 1.25rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .course-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .university-icon {
+            width: 32px;
+            height: 32px;
+            background-color: #dbeafe;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .course-info {
+            flex: 1;
+        }
+
+        .university-name {
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-bottom: 0.25rem;
+        }
+
+        .course-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1a2332;
+            margin-bottom: 0.25rem;
+        }
+
+        .course-location {
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        .course-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .bookmark-icon {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #e5e7eb;
+            border-radius: 4px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f3f4f6;
+        }
+
+        .course-info-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .reviews-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-avaliar {
+            padding: 0.65rem 1.5rem;
+            background-color: #a3e635;
+            color: #1a2332;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-avaliar:hover {
+            background-color: #84cc16;
+        }
+
+        .review-card {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .review-card:last-child {
+            border-bottom: none;
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .reviewer-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+        }
+
+        .reviewer-info {
+            flex: 1;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+            color: #1a2332;
+            font-size: 0.95rem;
+        }
+
+        .review-date {
+            font-size: 0.8rem;
+            color: #9ca3af;
+        }
+
+        .stars {
+            display: flex;
+            gap: 2px;
+            margin-top: 0.25rem;
+        }
+
+        .star {
+            color: #1a2332;
+            font-size: 0.9rem;
+        }
+
+        .star.empty {
+            color: #d1d5db;
+        }
+
+        .review-title {
+            font-weight: 600;
+            color: #1a2332;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .review-text {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .review-actions {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .review-action {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #6b7280;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .review-action:hover {
+            color: #1a2332;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            nav {
+                gap: 1rem;
+            }
+            .hero-illustration{
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+
+            .header-container {
+                flex-wrap: wrap;
+            }
+
+            nav {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                margin-top: 1rem;
+            }
+
+            .filters-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-group {
+                margin-left: 0;
+                flex-direction: column;
+            }
+
+            .search-input {
+                min-width: 100%;
+            }
+
+            .filter-select {
+                min-width: 100%;
+            }
+
+            .hero-section {
+                padding: 2rem 1rem;
+            }
+
+            .hero-content h1 {
+                font-size: 1.5rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .reviews-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-buttons {
+                gap: 0.5rem;
+            }
+
+            .btn-entrar, .btn-cadastrar {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .course-list {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
-
-    <header class="header">
-        <div class="header-left">
-            <img src="assets/logo.png" alt="UniOpine" class="logo">
-        </div>
-
-        <nav class="nav">
-            <a href="#" class="nav-item active">Cursos</a>
-            <a href="#" class="nav-item">Comunidade</a>
-            <a href="#" class="nav-item">Sobre nós</a>
-        </nav>
- 
-
-        <div class="header-right">
-            <button class="btn-login">Entrar</button>
-            <button class="btn-register">Cadastrar</button>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">U</div>
+                UniOpine
+            </a>
+            <nav>
+                <a href="#" class="active">Cursos</a>
+                <a href="#">Comunidade</a>
+                <a href="#">Sobre nós</a>
+            </nav>
+            <div class="header-buttons">
+                <div class="notification-icon">🔔</div>
+                <div class="user-avatar"></div>
+            </div>
         </div>
     </header>
 
+    <!-- Hero Section (pode ser removido após scroll) -->
+    <section class="hero-section" id="heroSection">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Encontre o que melhor se adequa a você. Ajude-nos a melhorar sua experiência</h1>
+                <p>Selecione as suas áreas de interesse e veja o que os estudantes dessa área estão discutindo sobre os cursos/faculdades.</p>
+                <button class="btn-selecionar">Selecionar Interesses</button>
+            </div>
+            <div class="hero-illustration">
+                <div class="browser-mockup">
+                    <img src="assets/images/image-banner.png" style="width: 100%;">
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <section class="hero">
-        <div class="hero-left">
-            <h2>Encontre o que melhor se adequa a você. Ajude-nos a melhorar sua experiência</h2>
-            <p>Selecione os seus interesses e receba cursos que os estudantes deram melhores avaliações dentro de suas universidades.</p>
-            <button class="btn-interesses">Selecionar Interesses</button>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Filters -->
+        <div class="filters-container">
+            <div class="filters-row">
+                <select class="filter-select">
+                    <option>Área de Conhecimento</option>
+                </select>
+                <select class="filter-select">
+                    <option>Classificação do curso</option>
+                </select>
+                <select class="filter-select">
+                    <option>Modalidade</option>
+                </select>
+                <select class="filter-select">
+                    <option>Período</option>
+                </select>
+                <div class="search-group">
+                    <input type="text" class="search-input" placeholder="Tem um curso em mente? Busque um curso">
+                    <button class="btn-buscar">Buscar</button>
+                </div>
+            </div>
         </div>
 
-        <div class="hero-right">
-            <img />
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Course List -->
+            <div class="course-list">
+                <div class="course-card">
+                    <div class="course-header">
+                        <div class="university-icon">🎓</div>
+                        <div class="course-info">
+                            <div class="university-name">Centro Universitário 7 de Setembro - UNI7</div>
+                            <div class="course-title">Sistemas de Informação</div>
+                            <div class="course-location">Fortaleza, Ceará</div>
+                        </div>
+                        <div class="course-rating">4.7 ⭐</div>
+                        <div class="bookmark-icon"></div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <div class="university-icon">🎓</div>
+                        <div class="course-info">
+                            <div class="university-name">Universidade de Fortaleza - UNIFOR</div>
+                            <div class="course-title">Análise e Desenvolvimento de Sistemas</div>
+                            <div class="course-location">Fortaleza, Ceará</div>
+                        </div>
+                        <div class="course-rating">4.5 ⭐</div>
+                        <div class="bookmark-icon"></div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <div class="university-icon">🎓</div>
+                        <div class="course-info">
+                            <div class="university-name">Universidade Federal do Ceará - UFC</div>
+                            <div class="course-title">Ciências da Computação</div>
+                            <div class="course-location">Fortaleza, Ceará</div>
+                        </div>
+                        <div class="course-rating">4.8 ⭐</div>
+                        <div class="bookmark-icon"></div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <div class="university-icon">🎓</div>
+                        <div class="course-info">
+                            <div class="university-name">Universidade Federal do Ceará - UFC</div>
+                            <div class="course-title">Engenharia de Software</div>
+                            <div class="course-location">Quixadá, Ceará</div>
+                        </div>
+                        <div class="course-rating">4.8 ⭐</div>
+                        <div class="bookmark-icon"></div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <div class="university-icon">🎓</div>
+                        <div class="course-info">
+                            <div class="university-name">Centro Universitário Christus - UniChristus</div>
+                            <div class="course-title">Sistemas de Informação</div>
+                            <div class="course-location">Fortaleza, Ceará</div>
+                        </div>
+                        <div class="course-rating">4.5 ⭐</div>
+                        <div class="bookmark-icon"></div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <div class="university-icon">🎓</div>
+                        <div class="course-info">
+                            <div class="university-name">Centro Universitário Ateneu - UniAteneu</div>
+                            <div class="course-title">Análise e Desenvolvimento de Sistemas</div>
+                            <div class="course-location">Fortaleza, Ceará</div>
+                        </div>
+                        <div class="course-rating">4.3 ⭐</div>
+                        <div class="bookmark-icon"></div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-header">
+                        <div class="university-icon">🎓</div>
+                        <div class="course-info">
+                            <div class="university-name">Universidade Federal do Ceará - UFC</div>
+                            <div class="course-title">Design Digital</div>
+                            <div class="course-location">Fortaleza, Ceará</div>
+                        </div>
+                        <div class="course-rating">4.6 ⭐</div>
+                        <div class="bookmark-icon"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reviews Section -->
+            <div class="reviews-section">
+                <div class="reviews-header">
+                    <div class="course-info-header">
+                        <div class="university-icon">🎓</div>
+                        <div>
+                            <div class="university-name">Centro Universitário 7 de Setembro - UNI7</div>
+                            <div class="course-title">Sistemas de Informação</div>
+                            <div class="course-location">Fortaleza, Ceará</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem;">
+                        <button class="btn-avaliar">Fazer Avaliação</button>
+                        <div class="course-rating">4.7 ⭐</div>
+                    </div>
+                </div>
+
+                <h2 class="reviews-title">Avaliações</h2>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer-avatar"></div>
+                        <div class="reviewer-info">
+                            <div class="reviewer-name">Carlos Augusto Schappo de Sousa</div>
+                            <div class="review-date">5 dias atrás</div>
+                            <div class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-title">Ambiente ótimo com aulas muito imersivas!</div>
+                    <div class="review-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed luctus ipsum, dictum et metus sed, pretium varius arcu. Quisque egestas odio nulla. Mauris nec porttitor lacus, in sagittis odio.</div>
+                    <div class="review-actions">
+                        <div class="review-action">👍 345</div>
+                        <div class="review-action">💬 Denunciar</div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer-avatar" style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);"></div>
+                        <div class="reviewer-info">
+                            <div class="reviewer-name">Érico Chaves Ferreira</div>
+                            <div class="review-date">11 dias atrás</div>
+                            <div class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star empty">★</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-title">Material ótimo e bem estruturado.</div>
+                    <div class="review-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed luctus ipsum, dictum et metus sed, pretium varius arcu. Quisque egestas odio nulla. Mauris nec porttitor lacus, in sagittis odio.</div>
+                    <div class="review-actions">
+                        <div class="review-action">👍 87</div>
+                        <div class="review-action">💬 Denunciar</div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer-avatar" style="background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);"></div>
+                        <div class="reviewer-info">
+                            <div class="reviewer-name">Sônia Alves de Rocha</div>
+                            <div class="review-date">20 dias atrás</div>
+                            <div class="stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-title">Professores atenciosos e empenhados!</div>
+                    <div class="review-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed luctus ipsum, dictum et metus sed, pretium varius arcu. Quisque egestas odio nulla. Mauris nec porttitor lacus, in sagittis odio.</div>
+                    <div class="review-actions">
+                        <div class="review-action">👍 87</div>
+                        <div class="review-action">💬 Denunciar</div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </section>
+    </main>
 
-    <section class="filtros">
-        <select>
-            <option>Área de Conhecimento</option>
-        </select>
-
-        <select>
-            <option>Classificação do Curso</option>
-        </select>
-
-        <select>
-            <option>Modalidade</option>
-        </select>
-
-        <select>
-            <option>Período</option>
-        </select>
-
-        <input type="text" placeholder="Digite o nome do curso" />
-        <button class="btn-buscar">Buscar</button>
-    </section>
-
-    <section class="cursos">
-    </section>
-
- 
     <script>
-    const itens = document.querySelectorAll('.nav-item');
-
-    itens.forEach(item => {
-        item.addEventListener('click', () => {
-            document.querySelector('.nav-item.active')?.classList.remove('active');
-            item.classList.add('active');
-        });
-    });
     </script>
-
 </body>
 </html>

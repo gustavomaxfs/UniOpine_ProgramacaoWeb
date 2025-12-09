@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #eeeeee;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        /* Header */
+        header {
+            background-color: #fff;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1a2332;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #1a2332 0%, #2d3e5f 100%);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: #1a2332;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding-bottom: 0.5rem;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: #a3e635;
+        }
+
+        nav a:hover {
+            color: #4b5563;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-entrar {
+            padding: 0.65rem 1.5rem;
+            background-color: #1a2332;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-entrar:hover {
+            background-color: #2d3e5f;
+        }
+
+        .btn-cadastrar {
+            padding: 0.65rem 1.5rem;
+            background-color: #a3e635;
+            color: #1a2332;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-cadastrar:hover {
+            background-color: #84cc16;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            cursor: pointer;
+        }
+
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #f3f4f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .notification-icon::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background-color: #a3e635;
+            border-radius: 50%;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            border: 2px solid #fff;
+        }
+
+        .form-card {
+            background: #1e3a5f;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin-inline: 30px;
+        }
+
+        .form-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #c4f54d;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            color: #c4f54d;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a0a0a0;
+            font-size: 18px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: none;
+            border-radius: 10px;
+            background: white;
+            font-size: 14px;
+            color: #333;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .form-input::placeholder {
+            color: #c0c0c0;
+        }
+
+        .form-input:focus {
+            box-shadow: 0 0 0 3px rgba(196, 245, 77, 0.3);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: #c4f54d;
+            color: #1e3a5f;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background: #b8e847;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(196, 245, 77, 0.4);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: white;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #c4f54d;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            nav {
+                gap: 1rem;
+            }
+            .hero-illustration{
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+
+            .header-container {
+                flex-wrap: wrap;
+            }
+
+            nav {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                margin-top: 1rem;
+            }
+
+            .filters-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-group {
+                margin-left: 0;
+                flex-direction: column;
+            }
+
+            .search-input {
+                min-width: 100%;
+            }
+
+            .filter-select {
+                min-width: 100%;
+            }
+
+            .hero-section {
+                padding: 2rem 1rem;
+            }
+
+            .hero-content h1 {
+                font-size: 1.5rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .reviews-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-buttons {
+                gap: 0.5rem;
+            }
+
+            .logo {
+                width: 30%;
+
+            }
+
+            .btn-entrar, .btn-cadastrar {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .course-list {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="../index.html" class="logo">
+                <img src="../assets/images/logo-uniopine.png" alt="" style="width: 100%;">
+            </a>
+            <div class="header-buttons">
+            <button class="btn-entrar">Entrar</button>
+                <button class="btn-cadastrar">Cadastrar</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="form-card" style="margin: auto; margin-bottom: 50px;">
+        <h1 class="form-title">Entrar</h1>
+        
+        <form>
+            <div class="form-group">
+                <label class="form-label">E-mail</label>
+                <div class="input-wrapper">
+                    <span class="input-icon">✉️</span>
+                    <input type="email" class="form-input" placeholder="Digite seu e-mail">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Senha</label>
+                <div class="input-wrapper">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" class="form-input" placeholder="Digite sua senha">
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">Entrar</button>
+
+            <div class="login-link">
+                Não tem uma conta? <a href="register.html">Cadastrar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
